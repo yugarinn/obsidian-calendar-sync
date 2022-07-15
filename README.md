@@ -1,21 +1,10 @@
-# Obsidian Sample Plugin
+# Obsidian Calendar Sync
 
-This is a sample plugin for Obsidian (https://obsidian.md).
+This is a calendar sync utility plugin for Obsidian (https://obsidian.md).
 
-This project uses Typescript to provide type checking and documentation.
-The repo depends on the latest plugin API (obsidian.d.ts) in Typescript Definition format, which contains TSDoc comments describing what it does.
+It watches for tags in user defined folders to sync events back and forth with Google Calendar.
 
-**Note:** The Obsidian API is still in early alpha and is subject to change at any time!
-
-This sample plugin demonstrates some of the basic functionality the plugin API can do.
-- Changes the default font color to red using `styles.css`.
-- Adds a ribbon icon, which shows a Notice when clicked.
-- Adds a command "Open Sample Modal" which opens a Modal.
-- Adds a plugin setting tab to the settings page.
-- Registers a global click event and output 'click' to the console.
-- Registers a global interval which logs 'setInterval' to the console.
-
-## First time developing plugins?
+## Usage
 
 Quick starting guide for new plugin devs:
 
