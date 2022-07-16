@@ -56,7 +56,7 @@ class CalendarSyncSettingsTab extends PluginSettingTab {
                 .setPlaceholder('Ex: "/journal, /projects/deadlines"')
                 .setValue(this.plugin.settings.lookupFoldersList.join(', '))
                 .onChange(async (value) => {
-                    this.plugin.settings.lookupFoldersList = value.split(',').map(folderName => folderName.trim());
+                    this.plugin.settings.lookupFoldersList = value.split(',').map((folderName) => folderName.trim());
                     await this.plugin.saveSettings();
                 }));
     }
