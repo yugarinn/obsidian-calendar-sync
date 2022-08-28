@@ -1,8 +1,7 @@
 interface CalendarEvent {
     uuid?: string;
-    path: string;
-    line: number;
+    localFilePath: string;
     text: string;
-    startsAt: string;
-    endsAt: string;
+    startsAt: Date;
+    endsAt: Date;
 }

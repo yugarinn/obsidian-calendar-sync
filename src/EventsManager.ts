@@ -1,30 +1,50 @@
-import Database from 'better-sqlite3';
+import { Vault, TFile } from 'obsidian';
+import { GoogleCalendarClient } from './clients/GoogleCalendarClient';
 
 export class EventsManager {
 
-    private database;
+    readonly eventsFilePath: string = '/.obsidian/plugins/obsidian-calendar-sync/database/events.json';
 
-    constructor() {
-        this.database = new Database('../events.db', { verbose: console.log });
+    private vault: Vault;
+
+    constructor(vault: Vault) {
+        this.vault = vault;
     }
 
-    public async sync(events: CalendarEvent[]) {
-        if (this.noChangesDetected(events)) return;
+    public async sync(fileEvents: CalendarEvent[], date: string) {
+        if (this.noChangesDetected()) return;
 
-        // const storedEvents = this.getNewEvents(events);
+        const localEvents = await this.loadLocalEventsFor(date);
+        const externalEvents = await (new GoogleCalendarClient()).listEventsFor(date);
 
-        // console.log(storedEvents);
+        fileEvents.forEach((fileEvent) => {
+            if (!this.fileEventIsCached(localEvents, fileEvent)) {
+            }
+        });
     }
 
-    private noChangesDetected(_events: Object[]): boolean {
+    private async loadLocalEventsFor(date: string) {
+        const exists = await this.vault.adapter.exists(this.eventsFilePath);
+
+        if (!exists) await this.createEmptyEventsFile();
+
+        const localFileContents = JSON.parse(await this.vault.adapter.read(this.eventsFilePath));
+        const events = localFileContents[date];
+
+        return events.map((event: any) => event as CalendarEvent)
+    }
+
+    private fileEventIsCached(localEvents: CalendarEvent[], fileEvent: CalendarEvent): boolean {
+        return Boolean(localEvents.filter((event) => {
+            return event.startsAt == fileEvent.startsAt && event.endsAt == fileEvent.endsAt;
+        }).length);
+    }
+
+    private noChangesDetected(): boolean {
         return false;
     }
 
-    private getNewEvents(_events: CalendarEvent[]): CalendarEvent[] | null {
-        const storedEventsForFile = this.database.prepare('SELECT * FROM events WHERE path')
-
-        console.log(storedEventsForFile);
-
-        return [<CalendarEvent>{}]
+    private async createEmptyEventsFile(): Promise<TFile> {
+        return await this.vault.create(this.eventsFilePath, '{}');
     }
 }

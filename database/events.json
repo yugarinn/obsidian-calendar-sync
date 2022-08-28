@@ -1,0 +1,41 @@
+{
+  "2022-07-04": [
+    {
+      "uuid": "string",
+      "path": "string",
+      "line": "number",
+      "text": "string",
+      "startsAt": "string",
+      "endsAt": "string"
+    }
+  ],
+  "2022-07-19": [
+    {
+      "uuid": "string",
+      "path": "string",
+      "line": "number",
+      "text": "string",
+      "startsAt": "string",
+      "endsAt": "string"
+    }
+  ],
+  "2022-07-20": [
+    {
+      "uuid": "string",
+      "path": "string",
+      "line": "number",
+      "text": "string",
+      "startsAt": "string",
+      "endsAt": "string"
+    },
+    {
+      "uuid": "string",
+      "path": "string",
+      "line": "number",
+      "text": "string",
+      "startsAt": "string",
+      "endsAt": "string"
+    }
+
+  ]
+}
